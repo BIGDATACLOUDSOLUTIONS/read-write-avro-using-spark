@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.example.json.producer.pos_invoice.types.LineItem;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.Random;
 
 class ProductGenerator {
@@ -32,7 +33,8 @@ class ProductGenerator {
     }
 
     private ProductGenerator() {
-        String DATAFILE = "src/main/resources/data/products.json";
+        final String projectRootDir = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
+        String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/products.json";
         ObjectMapper mapper = new ObjectMapper();
         random = new Random();
         qty = new Random();

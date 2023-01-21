@@ -21,6 +21,9 @@ import com.example.json.producer.pos_invoice.types.DeliveryAddress;
 import java.io.File;
 import java.util.Random;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+
 class AddressGenerator {
     private static final AddressGenerator ourInstance = new AddressGenerator();
     private final Random random;
@@ -36,7 +39,8 @@ class AddressGenerator {
     }
 
     private AddressGenerator() {
-        final String DATAFILE = "src/main/resources/data/address.json";
+        final String projectRootDir= FileSystems.getDefault().getPath("").toAbsolutePath().toString();
+        final String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/address.json";
         final ObjectMapper mapper;
         random = new Random();
         mapper = new ObjectMapper();

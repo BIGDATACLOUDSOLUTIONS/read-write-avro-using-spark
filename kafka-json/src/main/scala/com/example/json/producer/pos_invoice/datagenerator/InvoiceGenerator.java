@@ -23,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -41,7 +42,8 @@ public class InvoiceGenerator {
     }
 
     private InvoiceGenerator() {
-        String DATAFILE = "src/main/resources/data/Invoice.json";
+        final String projectRootDir = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
+        String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/Invoice.json";
         ObjectMapper mapper;
         invoiceIndex = new Random();
         invoiceNumber = new Random();
