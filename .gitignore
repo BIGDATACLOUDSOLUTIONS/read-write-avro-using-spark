@@ -18,6 +18,7 @@ project/target
 log/
 target/
 kafka-avro/target
+kafka-avro/src/main/resources/data/output
 kafka-avro-schema/target
 kafka-json/target
 spark-batch/target

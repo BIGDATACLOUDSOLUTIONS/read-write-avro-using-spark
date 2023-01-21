@@ -40,7 +40,7 @@ class AddressGenerator {
 
     private AddressGenerator() {
         final String projectRootDir= FileSystems.getDefault().getPath("").toAbsolutePath().toString();
-        final String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/address.json";
+        final String DATAFILE = projectRootDir + "/kafka-json/" + "src/main/resources/data/address.json";
         final ObjectMapper mapper;
         random = new Random();
         mapper = new ObjectMapper();

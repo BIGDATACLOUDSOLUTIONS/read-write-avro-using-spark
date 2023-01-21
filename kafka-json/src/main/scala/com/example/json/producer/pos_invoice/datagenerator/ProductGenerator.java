@@ -34,7 +34,7 @@ class ProductGenerator {
 
     private ProductGenerator() {
         final String projectRootDir = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
-        String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/products.json";
+        String DATAFILE = projectRootDir + "/kafka-json/" + "src/main/resources/data/products.json";
         ObjectMapper mapper = new ObjectMapper();
         random = new Random();
         qty = new Random();

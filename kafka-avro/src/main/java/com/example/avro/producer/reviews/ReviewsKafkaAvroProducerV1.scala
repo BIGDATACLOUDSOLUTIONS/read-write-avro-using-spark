@@ -2,12 +2,18 @@ package com.example.avro.producer.reviews
 
 import com.example.ReviewsV1
 import io.confluent.kafka.serializers.KafkaAvroSerializer
+import org.apache.avro.file.DataFileWriter
+import org.apache.avro.specific.SpecificDatumWriter
 import org.apache.kafka.clients.producer.{KafkaProducer, Producer, ProducerRecord}
 import org.apache.kafka.common.serialization.StringSerializer
 
+import java.io.{File, IOException}
+import java.nio.file.FileSystems
 import java.util.Properties
 
-class ReviewsKafkaAvroProducerV1(productFilePath: String) extends Thread {
+class ReviewsKafkaAvroProducerV1(threadNum: Int,
+                                 numberOfMessage: Long = 100,
+                                 writeAvroToFile: Boolean = false) extends Thread {
 
   implicit val properties: Properties = new Properties
   // normal producer
@@ -21,11 +27,27 @@ class ReviewsKafkaAvroProducerV1(productFilePath: String) extends Thread {
 
   val topic = "reviewsV1-avro"
 
+  val projectRootDir: String = FileSystems.getDefault.getPath("").toAbsolutePath.toString
+  val productFilePath: String = projectRootDir + "/datasets/BigBasketProducts.json"
+  val avroFilePath: String = projectRootDir + "/kafka-avro/" + s"src/main/resources/data/output/review-specific_${threadNum}.avro"
+
+  def writeAvroToFile(reviews: ReviewsV1): Unit = {
+    try {
+      val datumWriter = new SpecificDatumWriter[ReviewsV1](classOf[ReviewsV1])
+      val dataFileWriter = new DataFileWriter[ReviewsV1](datumWriter)
+      dataFileWriter.create(reviews.getSchema, new File(avroFilePath))
+      dataFileWriter.append(reviews)
+    } catch {
+      case e: IOException => e.printStackTrace()
+    }
+  }
+
   override def run(): Unit = {
-    val productList:Array[Product] = ReviewFieldGenerator(productFilePath)
+    val productList: Array[Product] = ReviewFieldGenerator(productFilePath)
     val producer: Producer[String, ReviewsV1] = new KafkaProducer[String, ReviewsV1](properties)
 
-    while(true) {
+    var startIndex = 1
+    while (startIndex <= numberOfMessage) {
       val reviewModel: ReviewModel = ReviewFieldGenerator.generateReviewModel(productList)
       val reviews = ReviewsV1.newBuilder
         .setMarketplace(reviewModel.marketplace)
@@ -48,7 +70,10 @@ class ReviewsKafkaAvroProducerV1(productFilePath: String) extends Thread {
 
       val producerRecord = new ProducerRecord[String, ReviewsV1](topic, reviews)
       println(reviews)
-      producer.send(producerRecord)
+      if (writeAvroToFile) writeAvroToFile(reviews)
+      else producer.send(producerRecord)
+
+      startIndex += 1
     }
     producer.flush();
     producer.close();
@@ -60,13 +85,14 @@ object ReviewsKafkaAvroProducerV1 {
 
   def main(args: Array[String]): Unit = {
 
-    val productFilePath = "C:\\Users\\RAJES\\IdeaProjects\\Learning2023\\kafka-generator-with-spark\\datasets\\BigBasketProducts.json"
-    val noOfThreads=2
+    val noOfThreads = 2
+    val numberOfMessage = 100
+    val writeAvroToFile: Boolean = true
 
     (1 to noOfThreads)
       .foreach { thread =>
-        val producer = new ReviewsKafkaAvroProducerV1(productFilePath)
-        producer.setName(productFilePath)
+        val producer = new ReviewsKafkaAvroProducerV1(thread, numberOfMessage, writeAvroToFile)
+        producer.setName(s"producer-${thread}")
         producer.start()
       }
   }

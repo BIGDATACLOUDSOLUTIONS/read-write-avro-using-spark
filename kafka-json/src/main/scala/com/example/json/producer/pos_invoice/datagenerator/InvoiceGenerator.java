@@ -43,7 +43,7 @@ public class InvoiceGenerator {
 
     private InvoiceGenerator() {
         final String projectRootDir = FileSystems.getDefault().getPath("").toAbsolutePath().toString();
-        String DATAFILE = projectRootDir + "kafka-json" + "src/main/resources/data/Invoice.json";
+        String DATAFILE = projectRootDir + "/kafka-json/" + "src/main/resources/data/Invoice.json";
         ObjectMapper mapper;
         invoiceIndex = new Random();
         invoiceNumber = new Random();
