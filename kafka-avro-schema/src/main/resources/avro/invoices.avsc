@@ -1,0 +1,101 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "Invoices",
+  "version": "1",
+  "fields": [
+    {
+      "name": "InvoiceNumber",
+      "type": "string"
+    },
+    {
+      "name": "CreatedTime",
+      "type": "long"
+    },
+    {
+      "name": "StoreID",
+      "type": "string"
+    },
+    {
+      "name": "PosID",
+      "type": "string"
+    },
+    {
+      "name": "CashierID",
+      "type": "string"
+    },
+    {
+      "name": "CustomerType",
+      "type": "string"
+    },
+    {
+      "name": "CustomerCardNo",
+      "type": "string"
+    },
+    {
+      "name": "TotalAmount",
+      "type": "double"
+    },
+    {
+      "name": "NumberOfItems",
+      "type": "long"
+    },
+    {
+      "name": "PaymentMethod",
+      "type": "string"
+    },
+    {
+      "name": "TaxableAmount",
+      "type": "double"
+    },
+    {
+      "name": "CGST",
+      "type": "double"
+    },
+    {
+      "name": "SGST",
+      "type": "double"
+    },
+    {
+      "name": "CESS",
+      "type": "double"
+    },
+    {
+      "name": "DeliveryType",
+      "type": "string"
+    },
+    {
+      "name": "InvoiceLineItems",
+      "type": {
+        "type": "array",
+        "items": {
+          "type": "record",
+          "namespace": "com.example",
+          "name": "InvoiceLineItems",
+          "fields": [
+            {
+              "name": "ItemCode",
+              "type": "string"
+            },
+            {
+              "name": "ItemDescription",
+              "type": "string"
+            },
+            {
+              "name": "ItemPrice",
+              "type": "double"
+            },
+            {
+              "name": "ItemQty",
+              "type": "long"
+            },
+            {
+              "name": "TotalValue",
+              "type": "double"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

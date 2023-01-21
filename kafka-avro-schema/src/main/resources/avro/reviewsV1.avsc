@@ -1,0 +1,101 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "ReviewsV1",
+  "doc": "This is the first version of Reviews and contains all columns",
+  "version": "1",
+  "fields": [
+    {
+      "name": "marketplace",
+      "type": "string",
+      "doc": "Country code of the marketplace where the review was written."
+    },
+    {
+      "name": "customer_id",
+      "type": "int",
+      "doc": "Random identifier that can be used to aggregate reviews written by a single author."
+    },
+    {
+      "name": "review_id",
+      "type": ["null","int"],
+      "default": null,
+      "doc": "The unique ID of the review."
+    },
+    {
+      "name": "product_id",
+      "type": "int",
+      "doc": "The unique Product ID"
+    },
+    {
+      "name": "product_title",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "Title of the product."
+    },
+    {
+      "name": "category",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "Category into which product has been classified"
+    },
+    {
+      "name": "sub_category",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "Subcategory into which product has been kept"
+    },
+    {
+      "name": "brand",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "Brand of the product"
+    },
+    {
+      "name": "sale_price",
+      "type": ["null","double"],
+      "default": null,
+      "doc": "Price at which product is being sold on the site"
+    },
+    {
+      "name": "market_price",
+      "type": ["null","double"],
+      "default": null,
+      "doc": "Market price of the product"
+    },
+    {
+      "name": "product_type",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "Type into which product falls"
+    },
+    {
+      "name": "star_rating",
+      "type": ["null","string"],
+      "default": null,
+      "doc": "The 1-5 star rating of the review."
+    },
+    {
+      "name": "helpful_votes",
+      "type": ["null","int"],
+      "default": null,
+      "doc": "Number of helpful votes."
+    },
+    {
+      "name": "total_votes",
+      "type": ["null","int"],
+      "default": null,
+      "doc": "Number of total votes the review received."
+    },
+    {
+      "name": "verified_purchase",
+      "type": "boolean",
+      "default": false,
+      "doc": "The review is on a verified purchase."
+    },
+    {
+      "name": "review_date",
+      "type": "string",
+      "doc": "The date the review was written."
+    }
+  ]
+}

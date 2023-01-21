@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "Employee",
+  "version": "1",
+  "fields": [
+    { "name": "first_name", "type": "string", "doc": "First Name of Customer" },
+    { "name": "last_name", "type": "string", "doc": "Last Name of Customer" },
+    { "name": "age", "type": "int", "doc": "Age at the time of registration" },
+    { "name": "doj", "type": "string", "doc": "Date Of Joining" },
+    { "name": "emp_id", "type": "int", "doc": "employee id" },
+    { "name": "email", "type": "string", "default": "dummy@example.com", ",doc": "official email address" }
+  ]
+}

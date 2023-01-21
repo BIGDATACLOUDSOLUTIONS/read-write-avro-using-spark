@@ -1,0 +1,27 @@
+.idea
+datasets/*.csv
+target
+
+#SBT
+target
+project/target
+
+# IntelliJ
+.idea
+.idea_modules
+*.iml
+*.ipr
+*.iws
+.history
+
+# Maven
+log/
+target/
+kafka-avro/target
+kafka-avro-schema/target
+kafka-json/target
+spark-batch/target
+spark-streaming/target
+# Mac
+.DS_Store
+.*.swp
