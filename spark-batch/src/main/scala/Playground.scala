@@ -6,12 +6,9 @@ object Playground {
   val spark = SparkSession.builder()
     .master("local[3]")
     .appName("Kafka Stream Demo")
-    .config("spark.streaming.stopGracefullyOnShutdown", "true")
     .getOrCreate()
 
   import spark.implicits._
-
-  spark.conf.set("spark.sql.jsonGenerator.ignoreNullField",false)
 
   def main(args: Array[String]): Unit = {
     val df = spark

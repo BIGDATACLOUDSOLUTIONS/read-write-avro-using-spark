@@ -2,7 +2,6 @@ package com.example.avro.producer.reviews
 
 import com.example.ReviewsV1
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
-import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.common.serialization.StringDeserializer
@@ -46,11 +45,6 @@ object ReviewsKafkaAvroConsumerV1 {
 
       kafkaConsumer.commitSync()
     }
-
-
-
-
-
   }
 
 }

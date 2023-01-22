@@ -56,6 +56,12 @@
             <version>${scala.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-avro_${scala.major.version}</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+
     </dependencies>
 
 
