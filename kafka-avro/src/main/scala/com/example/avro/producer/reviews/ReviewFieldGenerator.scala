@@ -1,7 +1,7 @@
 package com.example.avro.producer.reviews
 
 import com.example.avro.producer.AppConfig._
-import Utils._
+import com.example.avro.producer.Utils._
 import org.json4s.DefaultFormats
 import org.json4s._
 import org.json4s.jackson.JsonMethods._

@@ -3,7 +3,7 @@ package com.example.avro.producer.reviews
 import com.example.ReviewsV1
 import com.example.avro.producer.AppConfig._
 import com.example.avro.producer.AsynchronousProducerCallback
-import Utils._
+import com.example.avro.producer.Utils._
 
 import io.confluent.kafka.serializers.KafkaAvroSerializer
 import org.apache.avro.file.{DataFileReader, DataFileWriter}

@@ -2,7 +2,7 @@ package com.example.avro.producer.reviews
 
 import com.example.ReviewsV1
 import com.example.avro.producer.AppConfig._
-import com.example.avro.producer.reviews.Utils.conf
+import com.example.avro.producer.Utils.conf
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
 import org.apache.kafka.clients.consumer.ConsumerRecords
 import org.apache.kafka.clients.consumer.KafkaConsumer

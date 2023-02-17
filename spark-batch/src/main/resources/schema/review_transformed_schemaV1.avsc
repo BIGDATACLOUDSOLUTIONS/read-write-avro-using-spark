@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "ReviewsTransformedV1",
+  "doc": "This is the transformed version of Reviews and contains aggregated columns",
+  "version": "1",
+  "fields": [
+    {
+      "name": "marketplace",
+      "type": "string",
+      "doc": "Country code of the marketplace where the review was written."
+    },
+    {
+      "name": "profit",
+      "type": "double",
+      "doc": "sum of (market_price-sale_price) for each marketplace"
+    }
+  ]
+}

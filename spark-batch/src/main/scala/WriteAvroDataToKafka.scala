@@ -5,7 +5,8 @@ import java.nio.file.FileSystems
 import Context.spark
 import Context.spark.implicits._
 import org.apache.avro.Schema
-import org.apache.avro.generic.GenericData.StringType
+
+
 
 object App1Writer {
   val projectRootDir = FileSystems.getDefault.getPath("").toAbsolutePath.toString

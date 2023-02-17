@@ -1,8 +1,8 @@
-package com.example.avro.producer.reviews
+package com.example.avro.producer
 
-import java.io.File
 import com.typesafe.config.{Config, ConfigFactory}
 
+import java.io.File
 import java.nio.file.{FileSystems, Files, Paths}
 import scala.reflect.io.Directory
 
@@ -20,7 +20,7 @@ object Utils {
     Files.deleteIfExists(Paths.get(filePath))
   }
 
-  def createDirIfNotExists(outputDir: String):Unit={
+  def createDirIfNotExists(outputDir: String): Unit = {
     val path = Paths.get(outputDir)
     Files.createDirectories(path)
   }

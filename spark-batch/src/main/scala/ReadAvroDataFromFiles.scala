@@ -1,4 +1,5 @@
-import java.nio.file.FileSystems
+import AppConfig._
+import Utils._
 
 /**
  * About the source of AvroFileReadApp1 application:
@@ -10,10 +11,10 @@ import java.nio.file.FileSystems
 
 object AvroFileReadApp1 extends App {
 
-  val projectRootDir = FileSystems.getDefault.getPath("").toAbsolutePath.toString
-  val avroDataFilePath = projectRootDir + "/spark-batch/" + "src/main/resources/data/review_avro/*"
+  val avroDataFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_DATA_FILE_PATH)
+  val avroSchemaFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_SCHEMA_FILE_PATH)
 
-  val schemaAvro = Utils.getSchemaFromAvroFile("reviewsV1.avsc")
+  val schemaAvro = Utils.getSchemaFromAvroFile(avroSchemaFilePath)
 
   val valueDF = Utils.createDFFromAvroFile(avroDataFilePath, schemaAvro)
   valueDF.printSchema()
@@ -23,16 +24,15 @@ object AvroFileReadApp1 extends App {
 /**
  * About the source of AvroFileReadApp2 application:
  * Using Standard avro schema file(reviewsV1.avsc) and Confluent Kafka producer, Data was written to files in avro format.
- * In case the schema of the above data has been registered with Schema Registry and we want to use the same.
+ * In case the schema of the above data has been registered with Schema Registry as well and we want to use the same.
  *
  * This application reads data from Avro file and applies the avro schema and creates dataframe.
  */
 object AvroFileReadApp2 extends App {
 
-  val projectRootDir = FileSystems.getDefault.getPath("").toAbsolutePath.toString
-  val avroDataFilePath = projectRootDir + "/spark-batch/" + "src/main/resources/data/review_avro/*"
+  val avroDataFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_DATA_FILE_PATH)
 
-  val schemaAvro = Utils.getSchemaFromAvroSchemaRegistry("reviewsV1-avro")
+  val schemaAvro = Utils.getSchemaFromAvroSchemaRegistry(conf.getString(REVIEW_KAFKA_SOURCE_TOPIC))
 
   val valueDF = Utils.createDFFromAvroFile(avroDataFilePath, schemaAvro)
   valueDF.printSchema()
