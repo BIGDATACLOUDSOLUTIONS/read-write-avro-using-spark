@@ -3,7 +3,6 @@ import org.apache.log4j.{LogManager, Logger}
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.catalyst.catalog.ExternalCatalog
 import org.apache.spark.sql.{SQLContext, SparkSession}
-import org.apache.hadoop.fs.FileSystem
 
 object Context {
 
@@ -11,7 +10,6 @@ object Context {
   implicit lazy val sc: SparkContext = spark.sparkContext
   implicit lazy val sqlContext: SQLContext = spark.sqlContext
   implicit lazy val metaStore: ExternalCatalog = spark.sharedState.externalCatalog
-  implicit lazy val fs: FileSystem = FileSystem.get(sc.hadoopConfiguration)
 
   implicit lazy val logger: Logger = LogManager.getRootLogger
   spark.conf.set("hive.exec.dynamic.partition", "true")

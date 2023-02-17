@@ -1,55 +1,44 @@
 package com.example.avro.producer.reviews
 
 import com.example.ReviewsV1
+import com.example.avro.producer.AppConfig._
 import com.example.avro.producer.AsynchronousProducerCallback
+import Utils._
+
 import io.confluent.kafka.serializers.KafkaAvroSerializer
 import org.apache.avro.file.{DataFileReader, DataFileWriter}
 import org.apache.avro.specific.{SpecificDatumReader, SpecificDatumWriter}
 import org.apache.kafka.clients.producer.{KafkaProducer, Producer, ProducerRecord}
 import org.apache.kafka.common.serialization.StringSerializer
-
 import java.io.{File, IOException}
-import java.nio.file.FileSystems
 import java.util.Properties
 
 
 class ReviewsKafkaAvroProducerV1(threadNum: Int,
-                                 numberOfMessage: Long = 100,
                                  writeAvroToFile: Boolean = false) extends Thread {
 
   implicit val properties: Properties = new Properties
   // normal producer
-  properties.setProperty("bootstrap.servers", "127.0.0.1:9092")
+  properties.setProperty("bootstrap.servers", conf.getString(REVIEW_KAFKA_BROKER_LIST))
   properties.setProperty("acks", "all")
   properties.setProperty("retries", "10")
+
   // avro part
   properties.setProperty("key.serializer", classOf[StringSerializer].getName)
   properties.setProperty("value.serializer", classOf[KafkaAvroSerializer].getName)
-  properties.setProperty("schema.registry.url", "http://127.0.0.1:8081")
+  properties.setProperty("schema.registry.url", conf.getString(REVIEW_SCHEMA_REGISTRY_URL))
 
-  val topic = "reviewsV1-avro"
-
-  val projectRootDir: String = FileSystems.getDefault.getPath("").toAbsolutePath.toString
-  val productFilePath: String = projectRootDir + "/datasets/BigBasketProducts.json"
-  val avroFilePath: String = projectRootDir + "/kafka-avro/" + s"src/main/resources/data/output/review-specific_${threadNum}.avro"
-
-  def readAvroFile(): Unit = {
-    val datumReader = new SpecificDatumReader[ReviewsV1](classOf[ReviewsV1])
-    try {
-      println("Reading our specific record")
-      val dataFileReader = new DataFileReader[ReviewsV1](new File(avroFilePath), datumReader)
-      while (dataFileReader.hasNext) {
-        val readReviews: ReviewsV1 = dataFileReader.next
-        println(readReviews.toString)
-      }
-    } catch {
-      case e: IOException =>
-        e.printStackTrace()
-    }
-  }
+  val topic: String = conf.getString(REVIEW_KAFKA_TOPIC)
+  val numberOfMessage: Long = conf.getString(REVIEW_PRODUCER_NUMBER_OF_MESSAGE_TO_PUBLISH).toLong
+  val productFilePath: String = moduleRootDir + conf.getString(REVIEW_PRODUCER_PRODUCT_INPUT_FILE_PATH)
+  val avroFilePath: String = conf.getString(REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH) + s"review-specific_${threadNum}.avro"
+  recreateOutputDir(conf.getString(REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH))
+  println(s"avroFilePath: $avroFilePath")
 
   override def run(): Unit = {
-    val productList: Array[Product] = ReviewFieldGenerator(productFilePath)
+    val reviewFieldGenerator = new ReviewFieldGenerator()
+    val productData: Array[Product] = reviewFieldGenerator.readProductFile(productFilePath)
+
     val producer: Producer[String, ReviewsV1] = new KafkaProducer[String, ReviewsV1](properties)
 
     val writer: DataFileWriter[ReviewsV1] = if (writeAvroToFile) {
@@ -60,7 +49,7 @@ class ReviewsKafkaAvroProducerV1(threadNum: Int,
 
     var startIndex = 1
     while (startIndex <= numberOfMessage) {
-      val reviewModel: ReviewModel = ReviewFieldGenerator.generateReviewModel(productList)
+      val reviewModel: ReviewModel = reviewFieldGenerator.generateReviewModel(productData)
       val reviews = ReviewsV1.newBuilder
         .setMarketplace(reviewModel.marketplace)
         .setCustomerId(reviewModel.customer_id)
@@ -80,33 +69,49 @@ class ReviewsKafkaAvroProducerV1(threadNum: Int,
         .setReviewDate(reviewModel.review_date)
         .build
 
-      val producerRecord = new ProducerRecord[String, ReviewsV1](topic, reviews)
       if (writeAvroToFile) writer.append(reviews)
       else {
-        println(reviews)
+        val producerRecord = new ProducerRecord[String, ReviewsV1](topic, reviews)
         producer.send(producerRecord, new AsynchronousProducerCallback)
+        println(reviews)
       }
       startIndex += 1
     }
     producer.flush()
     producer.close()
-    writer.close()
-
-    if (writeAvroToFile) readAvroFile()
+    if (writeAvroToFile) {
+      writer.close()
+     // ReviewsKafkaAvroProducerV1.readAvroFile(avroFilePath)
+    }
   }
 }
 
 object ReviewsKafkaAvroProducerV1 {
 
+  def readAvroFile(avroFilePath: String): Unit = {
+    val datumReader = new SpecificDatumReader[ReviewsV1](classOf[ReviewsV1])
+    try {
+      println("Reading our specific record")
+      val dataFileReader = new DataFileReader[ReviewsV1](new File(avroFilePath), datumReader)
+      while (dataFileReader.hasNext) {
+        val readReviews: ReviewsV1 = dataFileReader.next
+        println(readReviews.toString)
+      }
+    } catch {
+      case e: IOException =>
+        e.printStackTrace()
+    }
+  }
+
   def main(args: Array[String]): Unit = {
 
-    val noOfThreads = 1
-    val numberOfMessage = 1000
     val writeAvroToFile: Boolean = true
+
+    val noOfThreads = conf.getString(REVIEW_PRODUCER_NO_OF_THREADS).toInt
 
     (1 to noOfThreads)
       .foreach { thread =>
-        val producer = new ReviewsKafkaAvroProducerV1(thread, numberOfMessage, writeAvroToFile)
+        val producer = new ReviewsKafkaAvroProducerV1(thread, writeAvroToFile)
         producer.setName(s"producer-${thread}")
         producer.start()
       }

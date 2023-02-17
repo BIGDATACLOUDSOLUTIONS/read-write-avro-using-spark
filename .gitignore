@@ -1,5 +1,5 @@
 .idea
-datasets/*.csv
+datasets/output
 target
 
 #SBT
@@ -18,11 +18,14 @@ project/target
 log/
 target/
 kafka-avro/target
-kafka-avro/src/main/resources/data/output
+kafka-avro/src/main/resources/data/*.csv
 kafka-avro-schema/target
 kafka-json/target
 spark-batch/target
 spark-streaming/target
+chk-point-dir
+
+
 # Mac
 .DS_Store
 .*.swp

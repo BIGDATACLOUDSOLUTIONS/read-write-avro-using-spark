@@ -7,7 +7,8 @@ import org.apache.spark.sql.{SQLContext, SparkSession}
 
 object Context {
 
-  implicit lazy val spark: SparkSession = SparkSession.builder.enableHiveSupport().getOrCreate()
+  implicit lazy val spark: SparkSession = SparkSession.builder().master("local[3]").appName("Spark-Batch").getOrCreate()
+
   implicit lazy val sc: SparkContext = spark.sparkContext
   implicit lazy val sqlContext: SQLContext = spark.sqlContext
   implicit lazy val metaStore: ExternalCatalog = spark.sharedState.externalCatalog

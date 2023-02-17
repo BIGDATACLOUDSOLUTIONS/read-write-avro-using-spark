@@ -1,8 +1,11 @@
 package com.example.avro.producer.reviews
 
+import com.example.avro.producer.AppConfig._
+import Utils._
 import org.json4s.DefaultFormats
 import org.json4s._
 import org.json4s.jackson.JsonMethods._
+
 import scala.io.Source
 import scala.util.Random
 
@@ -17,16 +20,12 @@ case class Product(
                     product_type: String = null,
                     rating: String = null)
 
-object ReviewFieldGenerator {
+class ReviewFieldGenerator {
 
   val random: Random.type = Random
   val listOfMarket = List("UK", "US", "India", "China")
 
-  def apply(productFilePath: String): Array[Product] = {
-    readInputFile(productFilePath)
-  }
-
-  def readInputFile(productFilePath: String): Array[Product] = {
+  def readProductFile(productFilePath: String): Array[Product] = {
     implicit val formats: DefaultFormats.type = DefaultFormats
     val bigBasketProduct: Array[Product] = Source.fromFile(productFilePath).getLines.map(line => {
       val jsValue = parse(s"""$line""")
@@ -60,13 +59,20 @@ object ReviewFieldGenerator {
       total_votes, verified_purchase, review_date
     )
   }
+}
 
-  def main(args:Array[String]):Unit={
-    val productFilePath = "C:\\Users\\RAJES\\IdeaProjects\\Learning2023\\kafka-generator-with-spark\\datasets\\BigBasketProducts.json"
+object ReviewFieldGenerator {
 
-    while(true){
-      println(generateReviewModel(readInputFile(productFilePath)))
-    }
+  def main(args: Array[String]): Unit = {
+
+    val productFilePath = moduleRootDir + conf.getString(REVIEW_PRODUCER_PRODUCT_INPUT_FILE_PATH)
+
+    val reviewFieldGenerator = new ReviewFieldGenerator()
+    val productData = reviewFieldGenerator.readProductFile(productFilePath)
+
+    val numberOfMessage: Int = conf.getString(REVIEW_PRODUCER_NUMBER_OF_MESSAGE_TO_PUBLISH).toInt
+
+    (1 to numberOfMessage).foreach(x => println(s"$x => ${reviewFieldGenerator.generateReviewModel(productData)}"))
   }
 
 }

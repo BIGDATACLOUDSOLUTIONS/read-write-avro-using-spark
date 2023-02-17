@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "namespace": "com.example",
+  "name": "InvoiceItem",
+  "fields": [
+    {"name": "marketplace", "type": ["string", "null"]},
+    {"name": "customer_id", "type": ["string", "null"]},
+    {"name": "review_id", "type": ["string", "null"]},
+    {"name": "product_id", "type": ["string", "null"]},
+    {"name": "product_title", "type": ["string", "null"]},
+    {"name": "category", "type": ["string", "null"]},
+    {"name": "sub_category", "type": ["string", "null"]},
+    {"name": "brand", "type": ["string", "null"]},
+    {"name": "sale_price", "type": ["string", "null"]},
+    {"name": "market_price", "type": ["string", "null"]},
+    {"name": "product_type", "type": ["string", "null"]},
+    {"name": "star_rating", "type": ["string", "null"]},
+    {"name": "helpful_votes", "type": ["string", "null"]},
+    {"name": "total_votes", "type": ["string", "null"]},
+    {"name": "verified_purchase", "type": ["string", "null"]},
+    {"name": "review_date","type": ["string", "null"]}
+  ]
+}
