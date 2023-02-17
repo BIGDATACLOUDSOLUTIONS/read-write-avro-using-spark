@@ -13,5 +13,6 @@ object AppConfig {
   val REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH= "review.producer.result_avro_output_path"
   val REVIEW_CONSUMER_NUMBER_OF_MESSAGE_TO_CONSUME="review.consumer.number_of_message_to_consume"
   val REVIEW_CONSUMER_AVRO_FILE_PATH_TO_READ="review.consumer.avro_file_path_to_read"
+  val REVIEW_CONSUMER_GROUP_ID="review.consumer.consumer_group_id"
 
 }
