@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>kafka-com.spark.stream.example.avro-schema</module>
-        <module>kafka-com.spark.stream.example.avro</module>
+        <module>kafka-avro-schema</module>
+        <module>kafka-avro</module>
         <module>kafka-json</module>
         <module>spark-batch</module>
         <module>spark-streaming</module>

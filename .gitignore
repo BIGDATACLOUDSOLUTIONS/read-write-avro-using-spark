@@ -1,6 +1,13 @@
-.idea
-datasets/output
-target
+#Project Specific
+chk-point-dir
+datasets
+kafka-avro/target
+kafka-avro/src/main/resources/data/*.csv
+kafka-avro-schema/target
+kafka-json/target
+spark-batch/target
+spark-streaming/target
+
 
 #SBT
 target
@@ -17,14 +24,6 @@ project/target
 # Maven
 log/
 target/
-kafka-avro/target
-kafka-avro/src/main/resources/data/*.csv
-kafka-avro-schema/target
-kafka-json/target
-spark-batch/target
-spark-streaming/target
-chk-point-dir
-
 
 # Mac
 .DS_Store
