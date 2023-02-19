@@ -15,10 +15,10 @@ import org.apache.avro.message.SchemaStore;
 /** This is the first version of Reviews and contains all columns */
 @org.apache.avro.specific.AvroGenerated
 public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 1805502508129269508L;
+  private static final long serialVersionUID = 6784972489792379316L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ReviewsV1\",\"namespace\":\"com.example\",\"doc\":\"This is the first version of Reviews and contains all columns\",\"fields\":[{\"name\":\"marketplace\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Country code of the marketplace where the review was written.\"},{\"name\":\"customer_id\",\"type\":\"int\",\"doc\":\"Random identifier that can be used to aggregate reviews written by a single author.\"},{\"name\":\"review_id\",\"type\":[\"null\",\"int\"],\"doc\":\"The unique ID of the review.\",\"default\":null},{\"name\":\"product_id\",\"type\":\"int\",\"doc\":\"The unique Product ID\"},{\"name\":\"product_title\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Title of the product.\",\"default\":null},{\"name\":\"category\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Category into which product has been classified\",\"default\":null},{\"name\":\"sub_category\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Subcategory into which product has been kept\",\"default\":null},{\"name\":\"brand\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Brand of the product\",\"default\":null},{\"name\":\"sale_price\",\"type\":[\"null\",\"double\"],\"doc\":\"Price at which product is being sold on the site\",\"default\":null},{\"name\":\"market_price\",\"type\":[\"null\",\"double\"],\"doc\":\"Market price of the product\",\"default\":null},{\"name\":\"product_type\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Type into which product falls\",\"default\":null},{\"name\":\"star_rating\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"The 1-5 star rating of the review.\",\"default\":null},{\"name\":\"helpful_votes\",\"type\":[\"null\",\"int\"],\"doc\":\"Number of helpful votes.\",\"default\":null},{\"name\":\"total_votes\",\"type\":[\"null\",\"int\"],\"doc\":\"Number of total votes the review received.\",\"default\":null},{\"name\":\"verified_purchase\",\"type\":\"boolean\",\"doc\":\"The review is on a verified purchase.\",\"default\":false},{\"name\":\"review_date\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"The date the review was written.\"}],\"version\":\"1\"}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"ReviewsV1\",\"namespace\":\"com.example\",\"doc\":\"This is the first version of Reviews and contains all columns\",\"fields\":[{\"name\":\"marketplace\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"Country code of the marketplace where the review was written.\"},{\"name\":\"customer_id\",\"type\":\"int\",\"doc\":\"Random identifier that can be used to aggregate reviews written by a single author.\"},{\"name\":\"review_id\",\"type\":[\"null\",\"int\"],\"doc\":\"The unique ID of the review.\",\"default\":null},{\"name\":\"product_id\",\"type\":\"int\",\"doc\":\"The unique Product ID\"},{\"name\":\"product_title\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Title of the product.\",\"default\":null},{\"name\":\"category\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Category into which product has been classified\",\"default\":null},{\"name\":\"sub_category\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Subcategory into which product has been kept\",\"default\":null},{\"name\":\"brand\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Brand of the product\",\"default\":null},{\"name\":\"sale_price\",\"type\":[\"null\",\"double\"],\"doc\":\"Price at which product is being sold on the site\",\"default\":null},{\"name\":\"market_price\",\"type\":[\"null\",\"double\"],\"doc\":\"Market price of the product\",\"default\":null},{\"name\":\"product_type\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"Type into which product falls\",\"default\":null},{\"name\":\"star_rating\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"The 1-5 star rating of the review.\",\"default\":null},{\"name\":\"helpful_votes\",\"type\":[\"null\",\"int\"],\"doc\":\"Number of helpful votes.\",\"default\":null},{\"name\":\"total_votes\",\"type\":[\"null\",\"int\"],\"doc\":\"Number of total votes the review received.\",\"default\":null},{\"name\":\"verified_purchase\",\"type\":[\"null\",{\"type\":\"string\",\"avro.java.string\":\"String\"}],\"doc\":\"The review is on a verified purchase.\",\"default\":null},{\"name\":\"review_date\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"doc\":\"The date the review was written.\"}],\"version\":\"1\"}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -103,7 +103,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
   /** Number of total votes the review received. */
   private java.lang.Integer total_votes;
   /** The review is on a verified purchase. */
-  private boolean verified_purchase;
+  private java.lang.String verified_purchase;
   /** The date the review was written. */
   private java.lang.String review_date;
 
@@ -133,7 +133,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
    * @param verified_purchase The review is on a verified purchase.
    * @param review_date The date the review was written.
    */
-  public ReviewsV1(java.lang.String marketplace, java.lang.Integer customer_id, java.lang.Integer review_id, java.lang.Integer product_id, java.lang.String product_title, java.lang.String category, java.lang.String sub_category, java.lang.String brand, java.lang.Double sale_price, java.lang.Double market_price, java.lang.String product_type, java.lang.String star_rating, java.lang.Integer helpful_votes, java.lang.Integer total_votes, java.lang.Boolean verified_purchase, java.lang.String review_date) {
+  public ReviewsV1(java.lang.String marketplace, java.lang.Integer customer_id, java.lang.Integer review_id, java.lang.Integer product_id, java.lang.String product_title, java.lang.String category, java.lang.String sub_category, java.lang.String brand, java.lang.Double sale_price, java.lang.Double market_price, java.lang.String product_type, java.lang.String star_rating, java.lang.Integer helpful_votes, java.lang.Integer total_votes, java.lang.String verified_purchase, java.lang.String review_date) {
     this.marketplace = marketplace;
     this.customer_id = customer_id;
     this.review_id = review_id;
@@ -201,7 +201,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
     case 11: star_rating = value$ != null ? value$.toString() : null; break;
     case 12: helpful_votes = (java.lang.Integer)value$; break;
     case 13: total_votes = (java.lang.Integer)value$; break;
-    case 14: verified_purchase = (java.lang.Boolean)value$; break;
+    case 14: verified_purchase = value$ != null ? value$.toString() : null; break;
     case 15: review_date = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
@@ -351,7 +351,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'verified_purchase' field.
    * @return The review is on a verified purchase.
    */
-  public boolean getVerifiedPurchase() {
+  public java.lang.String getVerifiedPurchase() {
     return verified_purchase;
   }
 
@@ -437,7 +437,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
     /** Number of total votes the review received. */
     private java.lang.Integer total_votes;
     /** The review is on a verified purchase. */
-    private boolean verified_purchase;
+    private java.lang.String verified_purchase;
     /** The date the review was written. */
     private java.lang.String review_date;
 
@@ -1209,7 +1209,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
       * The review is on a verified purchase.
       * @return The value.
       */
-    public boolean getVerifiedPurchase() {
+    public java.lang.String getVerifiedPurchase() {
       return verified_purchase;
     }
 
@@ -1220,7 +1220,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'verified_purchase'.
       * @return This builder.
       */
-    public com.example.ReviewsV1.Builder setVerifiedPurchase(boolean value) {
+    public com.example.ReviewsV1.Builder setVerifiedPurchase(java.lang.String value) {
       validate(fields()[14], value);
       this.verified_purchase = value;
       fieldSetFlags()[14] = true;
@@ -1243,6 +1243,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public com.example.ReviewsV1.Builder clearVerifiedPurchase() {
+      verified_purchase = null;
       fieldSetFlags()[14] = false;
       return this;
     }
@@ -1310,7 +1311,7 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
         record.star_rating = fieldSetFlags()[11] ? this.star_rating : (java.lang.String) defaultValue(fields()[11]);
         record.helpful_votes = fieldSetFlags()[12] ? this.helpful_votes : (java.lang.Integer) defaultValue(fields()[12]);
         record.total_votes = fieldSetFlags()[13] ? this.total_votes : (java.lang.Integer) defaultValue(fields()[13]);
-        record.verified_purchase = fieldSetFlags()[14] ? this.verified_purchase : (java.lang.Boolean) defaultValue(fields()[14]);
+        record.verified_purchase = fieldSetFlags()[14] ? this.verified_purchase : (java.lang.String) defaultValue(fields()[14]);
         record.review_date = fieldSetFlags()[15] ? this.review_date : (java.lang.String) defaultValue(fields()[15]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
@@ -1438,7 +1439,13 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
       out.writeInt(this.total_votes);
     }
 
-    out.writeBoolean(this.verified_purchase);
+    if (this.verified_purchase == null) {
+      out.writeIndex(0);
+      out.writeNull();
+    } else {
+      out.writeIndex(1);
+      out.writeString(this.verified_purchase);
+    }
 
     out.writeString(this.review_date);
 
@@ -1532,7 +1539,12 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
         this.total_votes = in.readInt();
       }
 
-      this.verified_purchase = in.readBoolean();
+      if (in.readIndex() != 1) {
+        in.readNull();
+        this.verified_purchase = null;
+      } else {
+        this.verified_purchase = in.readString();
+      }
 
       this.review_date = in.readString();
 
@@ -1651,7 +1663,12 @@ public class ReviewsV1 extends org.apache.avro.specific.SpecificRecordBase imple
           break;
 
         case 14:
-          this.verified_purchase = in.readBoolean();
+          if (in.readIndex() != 1) {
+            in.readNull();
+            this.verified_purchase = null;
+          } else {
+            this.verified_purchase = in.readString();
+          }
           break;
 
         case 15:

@@ -1,4 +1,4 @@
-package avro.reader.confluent
+package com.spark.stream.example.avro.reader.confluent
 
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient
 import org.apache.avro.generic.{GenericDatumReader, GenericRecord}

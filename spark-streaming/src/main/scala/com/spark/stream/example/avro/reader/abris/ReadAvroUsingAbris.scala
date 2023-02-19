@@ -1,4 +1,4 @@
-package avro.reader.abris
+package com.spark.stream.example.avro.reader.abris
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.col
@@ -16,14 +16,14 @@ object ReadAvroUsingAbris extends App {
     .readStream
     .format("kafka")
     .option("kafka.bootstrap.servers", "localhost:9092")
-    .option("subscribe", "customer-avro")
+    .option("subscribe", "customer-com.spark.stream.example.avro")
     .option("startingOffsets", "earliest")
     .load()
 
   val abrisConfig = AbrisConfig
     .fromConfluentAvro
     .downloadReaderSchemaByLatestVersion
-    .andTopicNameStrategy("customer-avro")
+    .andTopicNameStrategy("customer-com.spark.stream.example.avro")
     .usingSchemaRegistry("http://localhost:8081")
 
   val deserialized = kafkaSourceDF.select(from_avro(col("value"), abrisConfig) as 'data).select("data.*")

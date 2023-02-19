@@ -1,3 +1,5 @@
+package com.spark.batch.example
+
 object AppConfig {
   val REVIEW_KAFKA_BROKER_LIST = "review_ingest.kafka_broker_list"
   val REVIEW_SCHEMA_REGISTRY_URL = "review_ingest.schema_registry_url"

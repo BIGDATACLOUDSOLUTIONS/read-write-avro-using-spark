@@ -56,17 +56,17 @@ class ReviewsKafkaAvroProducerV1(threadNum: Int,
         .setCustomerId(reviewModel.customer_id)
         .setReviewId(reviewModel.review_id)
         .setProductId(reviewModel.product_id)
-        .setProductTitle(reviewModel.product_title)
+        .setProductTitle(reviewModel.product_title.orNull)
         .setCategory(reviewModel.category)
-        .setSubCategory(reviewModel.sub_category)
-        .setBrand(reviewModel.brand)
+        .setSubCategory(reviewModel.sub_category.orNull)
+        .setBrand(reviewModel.brand.orNull)
         .setSalePrice(reviewModel.sale_price)
         .setMarketPrice(reviewModel.market_price)
-        .setProductType(reviewModel.product_type)
+        .setProductType(reviewModel.product_type.orNull)
         .setStarRating(reviewModel.star_rating)
         .setHelpfulVotes(reviewModel.helpful_votes)
         .setTotalVotes(reviewModel.total_votes)
-        .setVerifiedPurchase(reviewModel.verified_purchase)
+        .setVerifiedPurchase(reviewModel.verified_purchase.orNull)
         .setReviewDate(reviewModel.review_date)
         .build
 
@@ -106,7 +106,7 @@ object ReviewsKafkaAvroProducerV1 {
 
   def main(args: Array[String]): Unit = {
 
-    val writeAvroToFile: Boolean = false
+    val writeAvroToFile: Boolean = true
 
     val noOfThreads = conf.getString(REVIEW_PRODUCER_NO_OF_THREADS).toInt
 

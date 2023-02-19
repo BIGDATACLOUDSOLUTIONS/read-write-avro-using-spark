@@ -10,15 +10,15 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>kafka-avro-schema</module>
-        <module>kafka-avro</module>
+        <module>kafka-com.spark.stream.example.avro-schema</module>
+        <module>kafka-com.spark.stream.example.avro</module>
         <module>kafka-json</module>
         <module>spark-batch</module>
         <module>spark-streaming</module>
     </modules>
 
     <properties>
-        <avro.version>1.11.1</avro.version>
+        <com.spark.stream.example.avro.version>1.11.1</com.spark.stream.example.avro.version>
         <kafka.version>7.2.2-ccs</kafka.version>
         <confluent.version>7.2.2</confluent.version>
         <java.version>1.8</java.version>

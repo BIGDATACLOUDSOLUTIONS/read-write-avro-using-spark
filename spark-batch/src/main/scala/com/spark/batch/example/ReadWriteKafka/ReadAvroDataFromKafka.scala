@@ -1,11 +1,14 @@
-import AppConfig._
+package com.spark.batch.example.ReadWriteKafka
+
+import com.spark.batch.example.AppConfig._
+import com.spark.batch.example.Utils
+import com.spark.batch.example.Utils.conf
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient
 import org.apache.avro.generic.{GenericDatumReader, GenericRecord}
 import org.apache.avro.io.DecoderFactory
 import org.apache.spark.sql.functions.{col, lit, udf}
 import za.co.absa.abris.avro.functions.from_avro
 import za.co.absa.abris.config.AbrisConfig
-import Utils._
 
 import java.nio.ByteBuffer
 

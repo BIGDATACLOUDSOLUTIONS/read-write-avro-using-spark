@@ -1,6 +1,7 @@
-import AppConfig._
-import Utils._
+package com.spark.batch.example.ReadWriteAvroFile
 
+import com.spark.batch.example.Utils._
+import com.spark.batch.example.AppConfig._
 /**
  * About the source of AvroFileReadApp1 application:
  * Using Standard avro schema file(reviewsV1.avsc) and Confluent Kafka producer, Data was written to files in avro format.
@@ -14,9 +15,9 @@ object AvroFileReadApp1 extends App {
   val avroDataFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_DATA_FILE_PATH)
   val avroSchemaFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_SCHEMA_FILE_PATH)
 
-  val schemaAvro = Utils.getSchemaFromAvroFile(avroSchemaFilePath)
+  val schemaAvro = getSchemaFromAvroFile(avroSchemaFilePath)
 
-  val valueDF = Utils.createDFFromAvroFile(avroDataFilePath, schemaAvro)
+  val valueDF = createDFFromAvroFile(avroDataFilePath, schemaAvro)
   valueDF.printSchema()
   valueDF.show(false)
 }
@@ -32,9 +33,9 @@ object AvroFileReadApp2 extends App {
 
   val avroDataFilePath = moduleRootDir + conf.getString(REVIEW_SOURCE_DATA_FILE_PATH)
 
-  val schemaAvro = Utils.getSchemaFromAvroSchemaRegistry(conf.getString(REVIEW_KAFKA_SOURCE_TOPIC))
+  val schemaAvro = getSchemaFromAvroSchemaRegistry(conf.getString(REVIEW_KAFKA_SOURCE_TOPIC))
 
-  val valueDF = Utils.createDFFromAvroFile(avroDataFilePath, schemaAvro)
+  val valueDF = createDFFromAvroFile(avroDataFilePath, schemaAvro)
   valueDF.printSchema()
   valueDF.show(false)
 }

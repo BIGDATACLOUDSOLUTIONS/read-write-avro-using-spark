@@ -1,4 +1,4 @@
-package avro.reader.confluent
+package com.spark.stream.example.avro.reader.confluent
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{col, lit}
@@ -19,12 +19,12 @@ object SparkStructuredStream extends Serializable {
       .readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", "localhost:9092")
-      .option("subscribe", "customer-avro")
+      .option("subscribe", "com.spark.batch.example.ReadWriteKafka.AppOneKafkaWriter")
       .option("startingOffsets", "earliest")
       .load()
 
     val valueDF = kafkaSourceDF.selectExpr("topic", "offset", "CAST(key AS STRING)", "value AS data")
-    val parsedDF = valueDF.select($"key", DspAvroDecoder.serdeUDF(col("data"), lit("first_name")).alias("needed_data"))
+    val parsedDF = valueDF.select($"key", DspAvroDecoder.serdeUDF(col("data"), lit("marketplace")).alias("marketplace"))
 
     //parsedDF.show(false)
     val query = parsedDF
@@ -32,7 +32,7 @@ object SparkStructuredStream extends Serializable {
       .format("console")
       //.option("numRows", 2)
       .outputMode("append")
-      .option("checkpointLocation", "chk-point-dir")
+      .option("checkpointLocation", "chk-point-dir/spark-streaming/app1")
       .start()
 
     query.awaitTermination()

@@ -1,4 +1,4 @@
-package avro.reader.confluent
+package com.spark.stream.example.avro.reader.confluent
 
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient
 import io.confluent.kafka.schemaregistry.client.rest.RestService
@@ -19,7 +19,7 @@ object SchemaRegistryHandler extends App {
     val avroSchemaFilePath = projectRootDir + "/spark-batch/" + "src/main/resources/schema/reviewsV1.avsc"
 
     val schemaAvro = new Schema.Parser().parse(new File(avroSchemaFilePath))
-    schemaRegistryClient.register("WriteAvroDataToKafka-App2", schemaAvro)
+    schemaRegistryClient.register("WriteAvroDataToKafka-com.spark.batch.example.ReadWriteKafka.App2", schemaAvro)
   }
 
   def getSchemaFromAvroSchemaRegistry(topicName: String): String = {

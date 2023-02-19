@@ -1,4 +1,6 @@
-import org.apache.log4j.Level.{ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN}
+package com.spark.stream.example
+
+import org.apache.log4j.Level._
 import org.apache.log4j.{LogManager, Logger}
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.catalyst.catalog.ExternalCatalog
