@@ -1,4 +1,4 @@
-This codebase has been created to show integration avro data, schema registry, confluent kafka and spark.
+This codebase has been created to show integration of avro data, schema registry, confluent kafka and spark.
 Modules: 
 1. kafka-avro: This has code to generate avro data either in file or on confluent kafka with schema on schema registry
 2. kafka-avro-schema: This module is a repository of schema file used for module kafka-avro. 
