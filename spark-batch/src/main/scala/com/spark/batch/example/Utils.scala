@@ -27,7 +27,7 @@ object Utils {
   def createDFFromAvroFile(avroDataFilePath: String, schemaAvro: String): DataFrame = {
     spark
       .read
-      .format("com.spark.stream.example.avro")
+      .format("avro")
       .option("avroSchema", schemaAvro)
       .load(avroDataFilePath)
   }
@@ -66,12 +66,13 @@ object Utils {
    */
   def getSchemaFromAvroSchemaRegistry(topicName: String,
                                       schemaRegisteredBy: String = "kafka")(implicit conf: Config): String = {
-    val restService = new RestService(conf.getString(REVIEW_SCHEMA_REGISTRY_URL))
 
-    val schemaName =
-    //if the schema is registered by kafka producer, -value gets appended by producer in the schema name
+    val schemaName = {
+      //if the schema is registered by kafka producer, -value gets appended by producer in the schema name
       if (schemaRegisteredBy.equalsIgnoreCase("kafka")) topicName + "-value"
       else topicName
+    }
+    val restService = new RestService(conf.getString(REVIEW_SCHEMA_REGISTRY_URL))
     val valueRestResponseSchema = restService.getLatestVersion(schemaName)
     val avroSchema = valueRestResponseSchema.getSchema
     avroSchema
@@ -89,10 +90,10 @@ object Utils {
     val avroSchema = Utils.getSchemaFromAvroFile(avroSchemaFilePath)
 
     // Register the schema with the Schema Registry
-    val schemaId = restService.registerSchema(avroSchema, topicName)
+    val schemaId = restService.registerSchema(avroSchema, topicName + "-value")
 
     // Print the ID of the registered schema
-    println(s"Schema for topic: $topicName has been registered with Schema Registry \nschema Id: $schemaId \nschema-name: $topicName")
+    println(s"Schema for topic: $topicName has been registered with Schema Registry \nschema Id: $schemaId \nschema-name: $topicName-value")
   }
 
 }

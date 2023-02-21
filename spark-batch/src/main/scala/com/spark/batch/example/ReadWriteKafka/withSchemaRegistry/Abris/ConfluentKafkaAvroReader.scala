@@ -1,41 +1,36 @@
-package com.spark.stream.example.avro.reader.abris
+package com.spark.batch.example.ReadWriteKafka.withSchemaRegistry.Abris
 
+import com.spark.batch.example.Utils.deleteNonEmptyDir
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.col
 import za.co.absa.abris.avro.functions.from_avro
 import za.co.absa.abris.config.AbrisConfig
 
-object ReadAvroUsingAbris extends App {
+
+object ConfluentKafkaAvroReader extends App{
+
   val spark = SparkSession.builder()
     .master("local[3]")
-    .appName("Kafka Avro Sink Demo")
-    .config("spark.streaming.stopGracefullyOnShutdown", "true")
+    .appName("ConfluentKafkaAvroReader-Batch")
     .getOrCreate()
 
   val kafkaSourceDF = spark
-    .readStream
+    .read
     .format("kafka")
     .option("kafka.bootstrap.servers", "localhost:9092")
-    .option("subscribe", "customer-com.spark.stream.example.avro")
+    .option("subscribe", "review-avro-raw")
     .option("startingOffsets", "earliest")
     .load()
 
   val abrisConfig = AbrisConfig
     .fromConfluentAvro
     .downloadReaderSchemaByLatestVersion
-    .andTopicNameStrategy("customer-com.spark.stream.example.avro")
+    .andTopicNameStrategy("review-avro-raw")
     .usingSchemaRegistry("http://localhost:8081")
 
   val deserialized = kafkaSourceDF.select(from_avro(col("value"), abrisConfig) as 'data).select("data.*")
 
-  val query = deserialized
-    .writeStream
-    .format("console")
-    .outputMode("append")
-    .option("checkpointLocation", "chk-point-dir")
-    .start()
-
-  query.awaitTermination()
+  deserialized.show(false)
 
 
 }

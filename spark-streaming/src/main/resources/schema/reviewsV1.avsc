@@ -88,8 +88,8 @@
     },
     {
       "name": "verified_purchase",
-      "type": "boolean",
-      "default": false,
+      "type": ["null","string"],
+      "default": null,
       "doc": "The review is on a verified purchase."
     },
     {

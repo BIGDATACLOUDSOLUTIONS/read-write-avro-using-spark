@@ -13,5 +13,7 @@ object AppConfig {
   val REVIEW_TARGET_SCHEMA_FILE_PATH = "review_ingest.target_type.schema_file_path"
   val REVIEW_KAFKA_TARGET_TOPIC = "review_ingest.target_type.kafka.kafka_topic"
 
+  val REVIEW_TARGET_SCHEMA_SPARK_KAFKA_COMPATIBLE = "review_ingest.target_type.review_target_schema_spark_kafka_compatible"
+
 
 }

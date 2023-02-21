@@ -31,10 +31,12 @@ class ReviewsKafkaAvroProducerV1(threadNum: Int,
   val topic: String = conf.getString(REVIEW_KAFKA_TOPIC)
   val numberOfMessage: Long = conf.getString(REVIEW_PRODUCER_NUMBER_OF_MESSAGE_TO_PUBLISH).toLong
   val productFilePath: String = moduleRootDir + conf.getString(REVIEW_PRODUCER_PRODUCT_INPUT_FILE_PATH)
+
   val avroFilePath: String = conf.getString(REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH) + s"review-specific_${threadNum}.avro"
-  createDirIfNotExists(conf.getString(REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH))
-  println(s"avroFilePath: $avroFilePath")
-  deleteFileIfExists(avroFilePath)
+  if (writeAvroToFile) {
+    createDirIfNotExists(conf.getString(REVIEW_PRODUCER_RESULT_AVRO_OUTPUT_PATH))
+    deleteFileIfExists(avroFilePath)
+  }
 
   override def run(): Unit = {
     val reviewFieldGenerator = new ReviewFieldGenerator()
@@ -106,7 +108,7 @@ object ReviewsKafkaAvroProducerV1 {
 
   def main(args: Array[String]): Unit = {
 
-    val writeAvroToFile: Boolean = true
+    val writeAvroToFile: Boolean = false
 
     val noOfThreads = conf.getString(REVIEW_PRODUCER_NO_OF_THREADS).toInt
 
